@@ -29,7 +29,6 @@ void StartPosLevel() {
 
 void __cdecl SetNextLevel_r(unsigned __int16 level)
 {
-
 	if (!IsAdventureComplete(SelectedCharacter) || level == LevelIDs_TwinkleCircuit || level >= LevelIDs_Chaos0 && level != LevelIDs_SandHill)
 	{
 		WriteData((short*)0x414b2e, CurrentCharacter);
@@ -53,7 +52,10 @@ void __cdecl SetNextLevel_r(unsigned __int16 level)
 
 void init_StartPosHack() {
 
-	StartPosLevel();
+	if (ChangeStartPos)
+		StartPosLevel();
+
+	//teleport player at the correct place when finishing a non intended stage, fix save corruption and wrong warp.
 	SetNextLevel_t = new Trampoline((int)SetNextLevel, (int)SetNextLevel + 0x6, SetNextLevel_r);
 	return;
 }

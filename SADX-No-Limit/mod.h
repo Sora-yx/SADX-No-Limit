@@ -2,6 +2,7 @@
 
 #define MaxPlayers 8
 extern HelperFunctions HelperFunctionsGlobal;
+extern bool ChangeStartPos;
 
 
 void ReadConfig(const char* path, const HelperFunctions& helperFunctions);
