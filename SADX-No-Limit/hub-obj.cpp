@@ -209,6 +209,7 @@ void init_HubObjectsHack() {
     //icecap door
     WriteCall((void*)0x53E210, GetCurCharacter_r);
 
+
     //trick the game to make it think we are playing Sonic so everything is open
     
     //WV Entrance
@@ -243,6 +244,9 @@ void init_HubObjectsHack() {
 
     //Speed Highway Elevator
     WriteCall((void*)0x638CC2, GetCharacterID_r);
+
+    //Speed Highway Knuckles Entrance
+    WriteCall((void*)0x636BF2, GetCharacterKnux_r);
     
     //Casino door
     WriteCall((void*)0x6383E2, GetCharacterID_r);

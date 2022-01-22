@@ -205,3 +205,59 @@ StartPosition New_StartPosGamma[]{
 	{ 22, 0,{ 260, 50, 0 }, 0 },
 	{ 23, 0,{ -131, 745, -385}, 0 },
 };
+
+FieldStartPosition SonicFieldPos[] {
+	{ LevelIDs_HotShelter, LevelIDs_EggCarrierInside, { 0.0, 14.0, 160.0}, 0xC000  }
+};
+
+FieldStartPosition MilesFieldPos[] {
+	{ LevelIDs_EmeraldCoast, LevelIDs_StationSquare, {-492.79999, 0.0, 2053.8}, 0xDBA9 },
+	{ LevelIDs_TwinklePark, LevelIDs_StationSquare, {785.29999, 50.0, 1771.7}, 0x7AB7 },
+	{ LevelIDs_RedMountain, LevelIDs_MysticRuins, {-1945.7, -351.5, 1646.6}, 0x5F9  },
+	{ LevelIDs_LostWorld, LevelIDs_MysticRuins, {-515.0, 89.0, -1054.0 }, 0x4000 },
+	{ LevelIDs_FinalEgg, LevelIDs_MysticRuins, {133.39999, 108.4, -7.1999998}, 0x70EF },
+	{ LevelIDs_HotShelter, LevelIDs_EggCarrierInside, { 0.0, 14.0, 160.0}, 0xC000  },
+};
+
+FieldStartPosition KnuxFieldPos[]{
+	{ LevelIDs_EmeraldCoast, LevelIDs_StationSquare, {-492.79999, 0.0, 2053.8}, 0xDBA9 },
+	{ LevelIDs_WindyValley, LevelIDs_MysticRuins, { 644.90002, 59.099998, -155.0}, 0x6000},
+	{ LevelIDs_TwinklePark, LevelIDs_StationSquare, {785.29999, 50.0, 1771.7}, 0x7AB7 },
+	{ LevelIDs_IceCap, LevelIDs_MysticRuins, {-1290.0, 27.5, 315.0}, 0xEC68 },
+	{ LevelIDs_FinalEgg, LevelIDs_MysticRuins, {133.39999, 108.4, -7.1999998}, 0x70EF },
+	{ LevelIDs_HotShelter, LevelIDs_EggCarrierInside, { 0.0, 14.0, 160.0}, 0xC000  },
+	{ LevelIDs_SandHill, LevelIDs_MysticRuins, {-1492.0, 40.799999, -66.599998}, 0x36C },
+};
+
+FieldStartPosition AmyFieldPos[]{
+	{ LevelIDs_EmeraldCoast, LevelIDs_StationSquare, {-492.79999, 0.0, 2053.8}, 0xDBA9 },
+	{ LevelIDs_WindyValley, LevelIDs_MysticRuins, { 644.90002, 59.099998, -155.0}, 0x6000},
+	{ LevelIDs_SpeedHighway, LevelIDs_StationSquare, {347.79999, 0.0, 1370.3}, 0x7FB9 },
+	{ LevelIDs_RedMountain, LevelIDs_MysticRuins, {-1945.7, -351.5, 1646.6}, 0x5F9  },
+	{ LevelIDs_SkyDeck, LevelIDs_EggCarrierInside, {0.0, 655.0, 146.0}, 0xC000 },
+	{ LevelIDs_LostWorld, LevelIDs_MysticRuins, {-515.0, 89.0, -1054.0 }, 0x4000 },
+	{ LevelIDs_IceCap, LevelIDs_MysticRuins, {-1290.0, 27.5, 315.0}, 0xEC68 },
+	{ LevelIDs_Casinopolis, LevelIDs_StationSquare, {-572.5, -2.5, 939.5}, 0x1F17 },
+	{ LevelIDs_SandHill, LevelIDs_MysticRuins, {-1492.0, 40.799999, -66.599998}, 0x36C },
+};
+
+FieldStartPosition BigFieldPos[]{
+	{ LevelIDs_WindyValley, LevelIDs_MysticRuins, { 644.90002, 59.099998, -155.0}, 0x6000},
+	{ LevelIDs_SpeedHighway, LevelIDs_StationSquare, {347.79999, 0.0, 1370.3}, 0x7FB9 },
+	{ LevelIDs_RedMountain, LevelIDs_MysticRuins, {-1945.7, -351.5, 1646.6}, 0x5F9  },
+	{ LevelIDs_SkyDeck, LevelIDs_EggCarrierInside, {0.0, 655.0, 146.0}, 0xC000 },
+	{ LevelIDs_LostWorld, LevelIDs_MysticRuins, {-515.0, 89.0, -1054.0 }, 0x4000 },
+	{ LevelIDs_Casinopolis, LevelIDs_StationSquare, {-572.5, -2.5, 939.5}, 0x1F17 },
+	{ LevelIDs_FinalEgg, LevelIDs_MysticRuins, {133.39999, 108.4, -7.1999998}, 0x70EF },
+	{ LevelIDs_SandHill, LevelIDs_MysticRuins, {-1492.0, 40.799999, -66.599998}, 0x36C },
+};
+
+FieldStartPosition GammaFieldPos[]{
+	{ LevelIDs_TwinklePark, LevelIDs_StationSquare, {785.29999, 50.0, 1771.7}, 0x7AB7 },
+	{ LevelIDs_SpeedHighway, LevelIDs_StationSquare, {347.79999, 0.0, 1370.3}, 0x7FB9 },
+	{ LevelIDs_SkyDeck, LevelIDs_EggCarrierInside, {0.0, 655.0, 146.0}, 0xC000 },
+	{ LevelIDs_LostWorld, LevelIDs_MysticRuins, {-515.0, 89.0, -1054.0 }, 0x4000 },
+	{ LevelIDs_IceCap, LevelIDs_MysticRuins, {-1290.0, 27.5, 315.0}, 0xEC68 },
+	{ LevelIDs_Casinopolis, LevelIDs_StationSquare, {-572.5, -2.5, 939.5}, 0x1F17 },
+	{ LevelIDs_SandHill, LevelIDs_MysticRuins, {-1492.0, 40.799999, -66.599998}, 0x36C },
+};
