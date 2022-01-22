@@ -182,16 +182,7 @@ static void __declspec(naked) ChangeSceneMR_ASM()
     }
 }
 
-int __cdecl GetCharacterIDSkyDeck_r(char index)
-{
-    if (IsAdventureComplete(SelectedCharacter) && CurrentCharacter != Characters_Knuckles)
-    {
-        return Characters_Sonic;
-    }
-    else {
-        return GetCharacterID(index);
-    }
-}
+
 
 void init_HubObjectsHack() {
 
@@ -258,6 +249,13 @@ void init_HubObjectsHack() {
     WriteCall((void*)0x51DEB1, GetCharacterIDSkyDeck_r);
    // WriteCall((void*)0x524F2F, GetCharacterID_r);    
    WriteCall((void*)0x524EC6, GetCharacterID_r);
+   WriteCall((void*)0x525020, GetCharacterSD_r);
+
+   //Hot Shelter
+   WriteCall((void*)0x52D5DF, GetCharacterHotShelter_r);
+   WriteCall((void*)0x52D576, GetCharacterHotShelter_r);
+   WriteCall((void*)0x52D6C3, GetCurCharacterHS_r);
+
 
     ColCylinder_Main_t = new Trampoline((int)ColCylinder_Main, (int)ColCylinder_Main + 0x6, ColCylinder_Main_r);
     ColCube_Main_t = new Trampoline((int)ColCube_Main, (int)ColCube_Main + 0x6, ColCube_Main_r);
