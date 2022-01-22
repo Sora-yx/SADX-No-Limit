@@ -12,4 +12,11 @@ int __cdecl GetCharacterIDSkyDeck_r(char index);
 int __cdecl GetCharacterSD_r();
 int __cdecl GetCurCharKnux_r();
 int __cdecl GetCurCharacterAmy_r();
+int __cdecl GetCharacterMiles_r(char index);
+int __cdecl GetCharIDTPDoor_r(char index);
+int __cdecl GetCharacterBig_r(char index);
+
 void TargetableEntity(ObjectMaster* obj);
+
+void Remove_TargetCursor(ObjectMaster* obj);
+void Check_AllocateObjectData2(ObjectMaster* obj, EntityData1* data1);

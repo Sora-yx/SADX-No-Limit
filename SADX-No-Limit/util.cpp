@@ -13,6 +13,17 @@ int __cdecl GetCharacterID_r(char index)
     }
 }
 
+int __cdecl GetCharacterMiles_r(char index)
+{
+    if (IsAdventureComplete(SelectedCharacter))
+    {
+        return Characters_Tails;
+    }
+    else {
+        return GetCharacterID(index);
+    }
+}
+
 int __cdecl GetCharacterKnux_r(char index)
 {
     if (IsAdventureComplete(SelectedCharacter))
@@ -51,6 +62,18 @@ int __cdecl GetCharacterAmy_r(char index)
     if (IsAdventureComplete(SelectedCharacter))
     {
         return Characters_Amy;
+    }
+    else {
+        return GetCharacterID(index);
+    }
+}
+
+
+int __cdecl GetCharacterBig_r(char index)
+{
+    if (IsAdventureComplete(SelectedCharacter))
+    {
+        return Characters_Big;
     }
     else {
         return GetCharacterID(index);
@@ -97,9 +120,18 @@ int __cdecl GetCharacterIDSkyDeck_r(char index)
     return GetCharacterID(index);
 }
 
+int __cdecl GetCharIDTPDoor_r(char index)
+{
+    if (!IsAdventureComplete(SelectedCharacter) || CurrentCharacter == Characters_Sonic || CurrentCharacter == Characters_Amy || CurrentCharacter == Characters_Big)
+        return GetCharacterID(index);
+
+
+    return Characters_Sonic;
+}
+
 int __cdecl GetCharacterSD_r()
 {
-    if (!IsAdventureComplete(SelectedCharacter))
+    if (!IsAdventureComplete(SelectedCharacter) || CurrentCharacter == Characters_Knuckles)
         return GetCurrentCharacterID();
 
     if (CurrentAct == 5) //Sky Deck pool door check
@@ -126,6 +158,18 @@ int __cdecl GetCurCharacterAmy_r()
     }
 }
 
+
+int __cdecl GetCurCharacterBig_r()
+{
+    if (IsAdventureComplete(SelectedCharacter))
+    {
+        return Characters_Big;
+    }
+    else {
+        return GetCurrentCharacterID();
+
+    }
+}
 
 int __cdecl GetCurCharacter_r()
 {
@@ -191,6 +235,43 @@ void TargetableEntity(ObjectMaster* obj)
         else
         {
             AddToCollisionList(data);
+        }
+    }
+}
+
+//Delete gamma shot on target
+void Remove_TargetCursor(ObjectMaster* obj) {
+
+    EntityData1* data = obj->Data1;
+
+    if (data) {
+        if (data->Status & Status_Hurt) {
+            E102KillCursor((task*)obj);
+        }
+    }
+}
+
+//Allow gamma to target object
+void Check_AllocateObjectData2(ObjectMaster* obj, EntityData1* data1)
+{
+    if (!obj || !data1)
+        return;
+
+    //if one of the player is gamma, init the target thing
+    for (int i = 0; i < 8; i++) {
+
+        if (!EntityData1Ptrs[i])
+            continue;
+
+        if (EntityData1Ptrs[i]->CharID == Characters_Gamma)
+        {
+            if (!data1->Action)
+            {
+                AllocateObjectData2(obj, data1);
+                ObjectData2_SetStartPosition(obj->Data1, (ObjectData2*)obj->Data2);
+            }
+
+            Remove_TargetCursor(obj);
         }
     }
 }

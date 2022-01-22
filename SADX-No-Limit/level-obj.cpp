@@ -6,6 +6,17 @@ Trampoline* Capsule_Load_t = nullptr;
 Trampoline* OSnowDoa_Main_t = nullptr;
 Trampoline* CartMain_t = nullptr;
 
+void Cart_Main_R(ObjectMaster* obj) {
+
+	EntityData1* data1 = obj->Data1;
+
+	if (data1->Action < 3)
+		Check_AllocateObjectData2(obj, data1);
+
+	ObjectFunc(origin, CartMain_t->Target());
+	origin(obj);
+};
+
 void __cdecl OSnowDoa_Main_r(ObjectMaster* a1) {
 
 	EntityData1* data = a1->Data1;
@@ -114,7 +125,6 @@ void FixFlipperCharacterPosition() {
 		else
 			ForcePlayerAction(0, 24);
 	}
-
 }
 
 void FixInvisibleWall() {
@@ -246,7 +256,7 @@ void init_LevelObjectsHack() {
 	OGate2_Main_t = new Trampoline(0x59C850, 0x59C858, OGate2_Main_r);
 	Capsule_Load_t = new Trampoline((int)Capsule_Load, (int)Capsule_Load + 0x7, Capsule_Load_r);
 	OSnowDoa_Main_t = new Trampoline(0x4F3EE0, 0x4F3EE5, OSnowDoa_Main_r);
-
+	CartMain_t = new Trampoline((int)Cart_Main, (int)Cart_Main + 0x5, Cart_Main_R);
 	return;
 
 }

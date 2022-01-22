@@ -3,7 +3,7 @@
 Trampoline* ColCylinder_Main_t = nullptr;
 Trampoline* ColCube_Main_t = nullptr;
 
-    //hack a ton of object to make every character able to use them
+ //hack a ton of object to make every character able to use them
 
 //very ugly way to prevent some col in the set file.
 void ColCylinder_Main_r(ObjectMaster* obj)
@@ -152,6 +152,11 @@ bool ChangeSceneMR_r(int a1)
             return ChangeSceneMR_(a1);
 
         break;
+    case 4:
+        level = LevelIDs_MysticRuins;
+        act = 2;
+        SetLevelEntrance(4);
+        break;
     case 5:
         level = LevelIDs_MysticRuins;
         act = 3;
@@ -182,26 +187,28 @@ static void __declspec(naked) ChangeSceneMR_ASM()
     }
 }
 
-
-
 void init_HubObjectsHack() {
 
-    WriteCall((void*)0x639941, IsCarAllowed_r);
-    WriteJump(OTwindoor, OTwindoor_r);
+
+    //trick the game to make it think we are playing a specific character so everything is open
+    
+    //sewers 
+    WriteCall((void*)0x639941, IsCarAllowed_r);   
+    WriteCall((void*)0x636B79, GetCharacterBig_r);
+
+    //TP Entrance
+    WriteCall((void*)0x63EA92, GetCharIDTPDoor_r);
 
     //hub world open area
     WriteCall((void*)0x5395C5, ChangeSceneMR_ASM);
     WriteCall((void*)0x63A110, isBarrierAllowed_r);
-
 
     //key door etc.
     WriteCall((void*)0x53C632, GetCharacterID_r);
     //icecap door
     WriteCall((void*)0x53E210, GetCurCharacter_r);
 
-
-    //trick the game to make it think we are playing Sonic so everything is open
-    
+ 
     //WV Entrance
     WriteCall((void*)0x536E40, GetCurCharacter_r);
     
@@ -252,10 +259,15 @@ void init_HubObjectsHack() {
    //SD Knux entrance
    WriteCall((void*)0x51E23D, GetCurCharKnux_r);
 
-   //Hot Shelter
+   //Hot Shelter Entry
    WriteCall((void*)0x52D5DF, GetCurCharacterHS_r);
    WriteCall((void*)0x52D576, GetCurCharacterHS_r);
    WriteCall((void*)0x52D6C3, GetCurCharacterHS_r);
+
+   //Sand Hill Entry
+   WriteCall((void*)0x53EB16, GetCharacterMiles_r);  
+   WriteCall((void*)0x53EB56, GetCharacterMiles_r);  
+   WriteCall((void*)0x53EAF2, GetCharacterMiles_r);
 
 
     ColCylinder_Main_t = new Trampoline((int)ColCylinder_Main, (int)ColCylinder_Main + 0x6, ColCylinder_Main_r);
