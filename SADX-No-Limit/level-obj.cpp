@@ -93,7 +93,7 @@ void FixRCCharacterAction() {
 
 void __cdecl Start_TailsCutscene(__int16 a1)
 {
-	if (IsAdventureComplete(SelectedCharacter) && CurrentCharacter == Characters_Tails)
+	if (IsAdventureComplete(CurrentCharacter) && CurrentCharacter == Characters_Tails)
 	{
 		return;
 	}
@@ -108,6 +108,14 @@ void __cdecl SetLevelClear_r(Uint32 level)
 	for (uint8_t i = 0; i < TrialLevels[SelectedCharacter].Count; i++)
 	{
 		if (TrialLevels[SelectedCharacter].Levels[i].Level == CurrentLevel && TrialLevels[SelectedCharacter].Levels[i].Act == CurrentAct)
+		{
+			return SetLevelClear(level); //call original function
+		}
+	}
+
+	for (uint8_t i = 0; i < TrialSubgames[SelectedCharacter].Count; i++)
+	{
+		if (TrialSubgames[SelectedCharacter].Levels[i].Level == CurrentLevel && TrialSubgames[SelectedCharacter].Levels[i].Act == CurrentAct)
 		{
 			return SetLevelClear(level); //call original function
 		}
@@ -225,7 +233,7 @@ void init_LevelObjectsHack() {
 
 	//Prevent the game to start the cutscene as Tails.  
 	WriteCall((void*)0x4F6B06, Start_TailsCutscene);
-	WriteCall((void*)0x601570, GetCharacterID_r);
+	WriteCall((void*)0x601570, GetCurCharRMMiles_r);
 
 
 	//RM

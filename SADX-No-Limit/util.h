@@ -15,6 +15,7 @@ int __cdecl GetCurCharacterAmy_r();
 int __cdecl GetCharacterMiles_r(char index);
 int __cdecl GetCharIDTPDoor_r(char index);
 int __cdecl GetCharacterBig_r(char index);
+int __cdecl GetCurCharRMMiles_r();
 
 void TargetableEntity(ObjectMaster* obj);
 

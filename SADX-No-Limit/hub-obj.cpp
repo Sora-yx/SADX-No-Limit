@@ -33,7 +33,7 @@ void ColCube_Main_r(ObjectMaster* obj)
 
         if (data->Scale.x == scale.x && data->Scale.y == scale.y && data->Scale.z == scale.z)
         {
-            if (IsAdventureComplete(SelectedCharacter))
+            if (IsAdventureComplete(CurrentCharacter))
                 return;
         }
     }
@@ -44,7 +44,7 @@ void ColCube_Main_r(ObjectMaster* obj)
 
 bool isBarrierAllowed_r()
 {
-    if (IsAdventureComplete(SelectedCharacter))
+    if (IsAdventureComplete(CurrentCharacter))
     {
         return true;
     }
@@ -84,7 +84,7 @@ bool sub_63EA90(char a1)
         break;
     }
 
-    if (IsAdventureComplete(SelectedCharacter))
+    if (IsAdventureComplete(CurrentCharacter))
     {
         return 1;
     }
@@ -120,10 +120,11 @@ int IsCarAllowed_r()
     }
 }
 
-bool ChangeSceneMR_r(int a1)
+
+int ChangeSceneMR_r(int a1)
 {
 
-    if (!IsAdventureComplete(SelectedCharacter))
+    if (!IsAdventureComplete(CurrentCharacter))
         return ChangeSceneMR_(a1);
 
     int level = 0;
@@ -189,7 +190,6 @@ static void __declspec(naked) ChangeSceneMR_ASM()
 
 void init_HubObjectsHack() {
 
-
     //trick the game to make it think we are playing a specific character so everything is open
     
     //sewers 
@@ -197,17 +197,17 @@ void init_HubObjectsHack() {
     WriteCall((void*)0x636B79, GetCharacterBig_r);
 
     //TP Entrance
-    WriteCall((void*)0x63EA92, GetCharIDTPDoor_r);
+    WriteCall((void*)0x63EA92, GetCharIDTPDoor_r);   
+    WriteCall((void*)0x63DBB2, GetCharIDTPDoor_r);
 
     //hub world open area
-    WriteCall((void*)0x5395C5, ChangeSceneMR_ASM);
+    WriteCall((void*)0x5395C5, ChangeSceneMR_r);
     WriteCall((void*)0x63A110, isBarrierAllowed_r);
 
     //key door etc.
     WriteCall((void*)0x53C632, GetCharacterID_r);
     //icecap door
     WriteCall((void*)0x53E210, GetCurCharacter_r);
-
  
     //WV Entrance
     WriteCall((void*)0x536E40, GetCurCharacter_r);
@@ -251,6 +251,7 @@ void init_HubObjectsHack() {
     //Egg Carrier Stuff
     WriteCall((void*)0x5240CA, GetCharacterID_r);   
     WriteCall((void*)0x52B475, GetCharacterGamma_r);
+
     //Sky Deck Entrance
     WriteCall((void*)0x51DEB1, GetCharacterSD_r);
    // WriteCall((void*)0x524F2F, GetCharacterID_r);    

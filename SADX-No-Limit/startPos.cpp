@@ -2,6 +2,7 @@
 #include "startpos.h"
 
 Trampoline* SetNextLevel_t = nullptr;
+short curCharacter_r = 0;
 
 void StartPosLevel() {
 
@@ -26,25 +27,22 @@ void StartPosLevel() {
 	return;
 }
 
-
+//used to fix destination when completing a stage with a non intended character.
 void __cdecl SetNextLevel_r(unsigned __int16 level)
 {
-	if (!IsAdventureComplete(SelectedCharacter) || level == LevelIDs_TwinkleCircuit || level >= LevelIDs_Chaos0 && level != LevelIDs_SandHill)
+	curCharacter_r = CurrentCharacter;
+
+	if (!IsAdventureComplete(CurrentCharacter) || level == LevelIDs_TwinkleCircuit || level >= LevelIDs_Chaos0 && level != LevelIDs_SandHill)
 	{
-		WriteData((short*)0x414b2e, CurrentCharacter);
 		FunctionPointer(void, original, (unsigned __int16 level), SetNextLevel_t->Target());
 		return original(level);
 	}
 
-	short curCharacter = Characters_Sonic;
-
-	WriteData((short*)0x414b2e, curCharacter);
-
 	if (CurrentLevel == LevelIDs_HotShelter)
-		curCharacter = Characters_Amy;
+		curCharacter_r = Characters_Amy;
 
 	if (CurrentLevel == LevelIDs_SkyDeck && CurrentCharacter == Characters_Knuckles)
-		curCharacter = Characters_Knuckles;
+		curCharacter_r = Characters_Knuckles;
 	
 	FunctionPointer(void, original, (unsigned __int16 level), SetNextLevel_t->Target());
 	return original(level);
@@ -57,5 +55,6 @@ void init_StartPosHack() {
 
 	//teleport player at the correct place when finishing a non intended stage, fix save corruption and wrong warp.
 	SetNextLevel_t = new Trampoline((int)SetNextLevel, (int)SetNextLevel + 0x6, SetNextLevel_r);
+	WriteData((short**)0x414b2e, &curCharacter_r); //change the character variable used to teleport the player to the next level
 	return;
 }
