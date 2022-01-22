@@ -11,3 +11,4 @@ int __cdecl GetCharacterHotShelter_r(char index);
 int __cdecl GetCharacterIDSkyDeck_r(char index);
 int __cdecl GetCharacterSD_r();
 int __cdecl GetCurCharKnux_r();
+int __cdecl GetCurCharacterAmy_r();

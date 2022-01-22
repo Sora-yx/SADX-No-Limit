@@ -1,6 +1,7 @@
 #include "pch.h"
 
 Trampoline* Balloon_Load_T = nullptr;
+Trampoline* OGate2_Main_t = nullptr;
 
 void __cdecl CheckLoadBalloon_r(ObjectMaster* a1) {
 
@@ -88,6 +89,18 @@ void Fix_PlayerPositionInPinball(Uint8 charIndex, float x, float y, float z) {
 	return PositionPlayer(charIndex, x, y, z);
 }
 
+void __cdecl OGate2_Main_r(ObjectMaster* obj)
+{
+	EntityData1* data = obj->Data1;
+
+	if (CurrentCharacter != Characters_Amy && data->Action < 2)
+		obj->Data1->Action = 2;
+
+	ObjectFunc(origin, OGate2_Main_t->Target());
+	origin(obj);
+}
+
+
 void init_LevelObjectsHack() {
 
 	//Twinkle Park
@@ -107,6 +120,7 @@ void init_LevelObjectsHack() {
 	WriteCall((void*)0x4F6B06, Start_TailsCutscene);
 	WriteCall((void*)0x601570, GetCharacterID_r);
 
+
 	//RM
 	WriteData<5>((int*)0x6008b1, 0x90); //Fix Red Mountain Act 2 music as Tails.
 	WriteData<5>((int*)0x601595, 0x90); //Remove player check when you enter at Red Mountain act 2.
@@ -125,7 +139,9 @@ void init_LevelObjectsHack() {
 	WriteCall((void*)0x415066, SetLevelClear_r);
 	WriteCall((void*)0x416D98, SetLevelClear_r);
 
+
 	Balloon_Load_T = new Trampoline((int)Balloon_Main, (int)Balloon_Main + 0x6, CheckLoadBalloon_r);
+	OGate2_Main_t = new Trampoline(0x59C850, 0x59C858, OGate2_Main_r);
 
 	return;
 

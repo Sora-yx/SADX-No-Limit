@@ -114,6 +114,19 @@ int __cdecl GetCharacterSD_r()
 }
 
 
+int __cdecl GetCurCharacterAmy_r()
+{
+    if (IsAdventureComplete(SelectedCharacter))
+    {
+        return Characters_Amy;
+    }
+    else {
+        return GetCurrentCharacterID();
+
+    }
+}
+
+
 int __cdecl GetCurCharacter_r()
 {
     if (IsAdventureComplete(SelectedCharacter))
