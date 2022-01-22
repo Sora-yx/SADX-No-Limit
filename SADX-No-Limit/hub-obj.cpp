@@ -189,7 +189,6 @@ void init_HubObjectsHack() {
     WriteCall((void*)0x639941, IsCarAllowed_r);
     WriteJump(OTwindoor, OTwindoor_r);
 
-
     //hub world open area
     WriteCall((void*)0x5395C5, ChangeSceneMR_ASM);
     WriteCall((void*)0x63A110, isBarrierAllowed_r);
@@ -215,7 +214,7 @@ void init_HubObjectsHack() {
     WriteCall((void*)0x53F922, GetCharacterID_r);
     WriteCall((void*)0x53E675, GetCharacterID_r);
     WriteCall((void*)0x53E5E9, GetCharacterID_r);
-    WriteCall((void*)0x53E8A3, GetCharacterID_r);
+    WriteCall((void*)0x53E8A3, GetCurCharacter_r);
 
     //kiki cage
     WriteCall((void*)0x53F97D, GetCharacterID_r);
@@ -225,9 +224,9 @@ void init_HubObjectsHack() {
     WriteCall((void*)0x532E8F, GetCharacterID_r);
 
     //final egg entrance
-    WriteCall((void*)0x53EDF0, GetCharacterID_r);
-    WriteCall((void*)0x53ED30, GetCharacterID_r);
-    WriteCall((void*)0x538550, GetCharacterID_r);    
+    WriteCall((void*)0x53EDF0, GetCurCharacter_r);
+    WriteCall((void*)0x53ED30, GetCurCharacter_r);
+    WriteCall((void*)0x538550, GetCurCharacter_r);    
     
     //Speed Highway Shutter
     WriteCall((void*)0x63A589, GetCharacterID_r);    
@@ -246,14 +245,16 @@ void init_HubObjectsHack() {
     WriteCall((void*)0x5240CA, GetCharacterID_r);   
     WriteCall((void*)0x52B475, GetCharacterGamma_r);
     //Sky Deck Entrance
-    WriteCall((void*)0x51DEB1, GetCharacterIDSkyDeck_r);
+    WriteCall((void*)0x51DEB1, GetCharacterSD_r);
    // WriteCall((void*)0x524F2F, GetCharacterID_r);    
-   WriteCall((void*)0x524EC6, GetCharacterID_r);
+   WriteCall((void*)0x524EC6, GetCurCharacter_r);
    WriteCall((void*)0x525020, GetCharacterSD_r);
+   //SD Knux entrance
+   WriteCall((void*)0x51E23D, GetCurCharKnux_r);
 
    //Hot Shelter
-   WriteCall((void*)0x52D5DF, GetCharacterHotShelter_r);
-   WriteCall((void*)0x52D576, GetCharacterHotShelter_r);
+   WriteCall((void*)0x52D5DF, GetCurCharacterHS_r);
+   WriteCall((void*)0x52D576, GetCurCharacterHS_r);
    WriteCall((void*)0x52D6C3, GetCurCharacterHS_r);
 
 

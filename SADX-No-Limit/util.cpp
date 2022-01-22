@@ -1,6 +1,5 @@
 #include "pch.h"
 
-
 //trick the game to make a character able to access every areas
 
 int __cdecl GetCharacterID_r(char index)
@@ -22,6 +21,17 @@ int __cdecl GetCharacterKnux_r(char index)
     }
     else {
         return GetCharacterID(index);
+    }
+}
+
+int __cdecl GetCurCharKnux_r()
+{
+    if (IsAdventureComplete(SelectedCharacter))
+    {
+        return Characters_Knuckles;
+    }
+    else {
+        return GetCurrentCharacterID();
     }
 }
 
@@ -73,24 +83,34 @@ int __cdecl GetCurCharacterHS_r()
 
 int __cdecl GetCharacterIDSkyDeck_r(char index)
 {
-    if (IsAdventureComplete(SelectedCharacter) && CurrentCharacter != Characters_Knuckles && CurrentCharacter != Characters_Tails)
+    if (!IsAdventureComplete(SelectedCharacter))
+        return GetCharacterID(index);
+
+    if (CurrentAct == 5) //Sky Deck pool door check
+        return Characters_Knuckles; 
+
+    if (CurrentCharacter != Characters_Tails)
     {
         return Characters_Sonic;
     }
-    else {
-        return GetCharacterID(index);
-    }
+
+    return GetCharacterID(index);
 }
 
 int __cdecl GetCharacterSD_r()
 {
-    if (IsAdventureComplete(SelectedCharacter) && CurrentCharacter != Characters_Knuckles && CurrentCharacter != Characters_Tails)
+    if (!IsAdventureComplete(SelectedCharacter))
+        return GetCurrentCharacterID();
+
+    if (CurrentAct == 5) //Sky Deck pool door check
+        return Characters_Knuckles;
+
+    if (CurrentCharacter != Characters_Tails)
     {
         return Characters_Sonic;
     }
-    else {
-        return GetCurrentCharacterID();
-    }
+
+    return GetCurrentCharacterID();
 }
 
 
