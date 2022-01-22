@@ -32,7 +32,7 @@ void __cdecl SetNextLevel_r(unsigned __int16 level)
 {
 	curCharacter_r = CurrentCharacter;
 
-	if (!IsAdventureComplete(CurrentCharacter) || level == LevelIDs_TwinkleCircuit || level >= LevelIDs_Chaos0 && level != LevelIDs_SandHill)
+	if (!IsAdventureComplete(SelectedCharacter) || level == LevelIDs_TwinkleCircuit || level >= LevelIDs_Chaos0 && level != LevelIDs_SandHill)
 	{
 		FunctionPointer(void, original, (unsigned __int16 level), SetNextLevel_t->Target());
 		return original(level);

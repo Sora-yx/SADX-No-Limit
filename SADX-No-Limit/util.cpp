@@ -4,7 +4,7 @@
 
 int __cdecl GetCharacterID_r(char index)
 {
-    if (IsAdventureComplete(CurrentCharacter))
+    if (IsAdventureComplete(SelectedCharacter))
     {
         return Characters_Sonic;
     }
@@ -15,7 +15,7 @@ int __cdecl GetCharacterID_r(char index)
 
 int __cdecl GetCharacterMiles_r(char index)
 {
-    if (IsAdventureComplete(CurrentCharacter))
+    if (IsAdventureComplete(SelectedCharacter))
     {
         return Characters_Tails;
     }
@@ -26,7 +26,7 @@ int __cdecl GetCharacterMiles_r(char index)
 
 int __cdecl GetCharacterKnux_r(char index)
 {
-    if (IsAdventureComplete(CurrentCharacter))
+    if (IsAdventureComplete(SelectedCharacter))
     {
         return Characters_Knuckles;
     }
@@ -37,7 +37,7 @@ int __cdecl GetCharacterKnux_r(char index)
 
 int __cdecl GetCurCharKnux_r()
 {
-    if (IsAdventureComplete(CurrentCharacter))
+    if (IsAdventureComplete(SelectedCharacter))
     {
         return Characters_Knuckles;
     }
@@ -48,7 +48,7 @@ int __cdecl GetCurCharKnux_r()
 
 int __cdecl GetCharacterGamma_r(char index)
 {
-    if (IsAdventureComplete(CurrentCharacter))
+    if (IsAdventureComplete(SelectedCharacter))
     {
         return Characters_Gamma;
     }
@@ -59,7 +59,7 @@ int __cdecl GetCharacterGamma_r(char index)
 
 int __cdecl GetCharacterAmy_r(char index)
 {
-    if (IsAdventureComplete(CurrentCharacter))
+    if (IsAdventureComplete(SelectedCharacter))
     {
         return Characters_Amy;
     }
@@ -71,7 +71,7 @@ int __cdecl GetCharacterAmy_r(char index)
 
 int __cdecl GetCharacterBig_r(char index)
 {
-    if (IsAdventureComplete(CurrentCharacter))
+    if (IsAdventureComplete(SelectedCharacter))
     {
         return Characters_Big;
     }
@@ -82,7 +82,7 @@ int __cdecl GetCharacterBig_r(char index)
 
 int __cdecl GetCharacterHotShelter_r(char index)
 {
-    if (IsAdventureComplete(CurrentCharacter) && CurrentCharacter != Characters_Big && CurrentCharacter != Characters_Gamma)
+    if (IsAdventureComplete(SelectedCharacter) && CurrentCharacter != Characters_Big && CurrentCharacter != Characters_Gamma)
     {
         return Characters_Amy;
     }
@@ -93,7 +93,7 @@ int __cdecl GetCharacterHotShelter_r(char index)
 
 int __cdecl GetCurCharacterHS_r()
 {
-    if (IsAdventureComplete(CurrentCharacter) && CurrentCharacter != Characters_Big && CurrentCharacter != Characters_Gamma)
+    if (IsAdventureComplete(SelectedCharacter) && CurrentCharacter != Characters_Big && CurrentCharacter != Characters_Gamma)
     {
         return Characters_Amy;
     }
@@ -105,7 +105,7 @@ int __cdecl GetCurCharacterHS_r()
 
 int __cdecl GetCurCharRMMiles_r()
 {
-    if (CurrentCharacter == Characters_Tails && !IsAdventureComplete(CurrentCharacter))
+    if (CurrentCharacter == Characters_Tails && !IsAdventureComplete(SelectedCharacter))
     {
         return GetCurrentCharacterID();
     }
@@ -115,7 +115,7 @@ int __cdecl GetCurCharRMMiles_r()
 
 int __cdecl GetCharacterIDSkyDeck_r(char index)
 {
-    if (!IsAdventureComplete(CurrentCharacter))
+    if (!IsAdventureComplete(SelectedCharacter))
         return GetCharacterID(index);
 
     if (CurrentAct == 5) //Sky Deck pool door check
@@ -131,7 +131,7 @@ int __cdecl GetCharacterIDSkyDeck_r(char index)
 
 int __cdecl GetCharIDTPDoor_r(char index)
 {
-    if (!IsAdventureComplete(CurrentCharacter) || CurrentCharacter == Characters_Sonic || CurrentCharacter == Characters_Amy || CurrentCharacter == Characters_Big)
+    if (!IsAdventureComplete(SelectedCharacter) || CurrentCharacter == Characters_Sonic || CurrentCharacter == Characters_Amy || CurrentCharacter == Characters_Big)
         return GetCharacterID(index);
 
     return Characters_Sonic;
@@ -139,7 +139,7 @@ int __cdecl GetCharIDTPDoor_r(char index)
 
 int __cdecl GetCharacterSD_r()
 {
-    if (!IsAdventureComplete(CurrentCharacter) || CurrentCharacter == Characters_Knuckles)
+    if (!IsAdventureComplete(SelectedCharacter) || CurrentCharacter == Characters_Knuckles)
         return GetCurrentCharacterID();
 
     if (CurrentAct == 5) //Sky Deck pool door check
@@ -156,7 +156,7 @@ int __cdecl GetCharacterSD_r()
 
 int __cdecl GetCurCharacterAmy_r()
 {
-    if (IsAdventureComplete(CurrentCharacter))
+    if (IsAdventureComplete(SelectedCharacter))
     {
         return Characters_Amy;
     }
@@ -169,7 +169,7 @@ int __cdecl GetCurCharacterAmy_r()
 
 int __cdecl GetCurCharacterBig_r()
 {
-    if (IsAdventureComplete(CurrentCharacter))
+    if (IsAdventureComplete(SelectedCharacter))
     {
         return Characters_Big;
     }
@@ -181,7 +181,7 @@ int __cdecl GetCurCharacterBig_r()
 
 int __cdecl GetCurCharacter_r()
 {
-    if (IsAdventureComplete(CurrentCharacter))
+    if (IsAdventureComplete(SelectedCharacter))
     {
         return Characters_Sonic;
     }

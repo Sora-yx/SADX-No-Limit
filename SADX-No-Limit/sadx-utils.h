@@ -18,8 +18,19 @@ static signed int isTPDoorOpen(char a1)
 	return result;
 }
 
+static const void* const ChangeSceneMRPtr = (void*)0x539220;
+static BOOL ChangeSceneMR_(int a1)
+{
+	BOOL result;
 
-FunctionPointer(int, ChangeSceneMR_, (int a1), 0x539220);
+	__asm
+	{
+		mov ebx, a1
+		call ChangeSceneMRPtr
+		mov eax, result
+	}
+	return result;
+}
 
 DataPointer(unsigned char, SelectedCharacter, 0x3B2A2FD);
 FunctionPointer(bool, isBarrierAllowed, (), 0x639A30);

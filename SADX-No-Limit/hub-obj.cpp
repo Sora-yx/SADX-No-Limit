@@ -33,7 +33,7 @@ void ColCube_Main_r(ObjectMaster* obj)
 
         if (data->Scale.x == scale.x && data->Scale.y == scale.y && data->Scale.z == scale.z)
         {
-            if (IsAdventureComplete(CurrentCharacter))
+            if (IsAdventureComplete(SelectedCharacter))
                 return;
         }
     }
@@ -44,69 +44,12 @@ void ColCube_Main_r(ObjectMaster* obj)
 
 bool isBarrierAllowed_r()
 {
-    if (IsAdventureComplete(CurrentCharacter))
+    if (IsAdventureComplete(SelectedCharacter))
     {
         return true;
     }
 
     return isBarrierAllowed();
-}
-
-bool sub_63EA90(char a1)
-{
-    if ((unsigned int)GetCharacterID(0) > 7)
-    {
-        return 0;
-    }
-
-    switch (a1)
-    {
-    case Characters_Sonic:
-        if (!GetEventFlag((EventFlags)FLAG_SONIC_CLEAR_TWINKLEPARK))
-        {
-            break;
-        }
-        return GetEventFlag((EventFlags)FLAG_SONIC_CLEAR_HIGHWAY);
-        break;
-    case Characters_Amy:
-        if (!GetEventFlag((EventFlags)FLAG_AMY_CLEAR_TWINKLEPARK))
-        {
-            break;
-        }
-        return GetEventFlag((EventFlags)FLAG_AMY_CLEAR_HOTSHELTER);
-        break;
-    case Characters_Big:
-        if (GetEventFlag((EventFlags)FLAG_BIG_CLEAR_TWINKLEPARK))
-        {
-            return GetEventFlag((EventFlags)FLAG_BIG_CLEAR_SNOW);
-        }
-
-        break;
-    }
-
-    if (IsAdventureComplete(CurrentCharacter))
-    {
-        return 1;
-    }
-
-    return 0;
-}
-
-void __cdecl OTwindoor_r(ObjectMaster* obj)
-{
-    if (!ClipSetObject(obj))
-    {
-        Collision_Init(obj, (CollisionData*)0x2BC0CE0, 5, 4u);
-        if (sub_63EA90(CurrentCharacter))
-        {
-            obj->MainSub = (ObjectFuncPtr)0x63ED60;
-        }
-        else
-        {
-            obj->MainSub = (ObjectFuncPtr)0x63EDD0;
-        }
-        obj->DisplaySub = (ObjectFuncPtr)0x63EB30;
-    }
 }
 
 int IsCarAllowed_r()
@@ -124,7 +67,7 @@ int IsCarAllowed_r()
 int ChangeSceneMR_r(int a1)
 {
 
-    if (!IsAdventureComplete(CurrentCharacter))
+    if (!IsAdventureComplete(SelectedCharacter))
         return ChangeSceneMR_(a1);
 
     int level = 0;
@@ -201,7 +144,7 @@ void init_HubObjectsHack() {
     WriteCall((void*)0x63DBB2, GetCharIDTPDoor_r);
 
     //hub world open area
-    WriteCall((void*)0x5395C5, ChangeSceneMR_r);
+    WriteCall((void*)0x5395C5, ChangeSceneMR_ASM);
     WriteCall((void*)0x63A110, isBarrierAllowed_r);
 
     //key door etc.
@@ -253,8 +196,7 @@ void init_HubObjectsHack() {
     WriteCall((void*)0x52B475, GetCharacterGamma_r);
 
     //Sky Deck Entrance
-    WriteCall((void*)0x51DEB1, GetCharacterSD_r);
-   // WriteCall((void*)0x524F2F, GetCharacterID_r);    
+    WriteCall((void*)0x51DEB1, GetCharacterSD_r);  
    WriteCall((void*)0x524EC6, GetCurCharacter_r);
    WriteCall((void*)0x525020, GetCharacterSD_r);
    //SD Knux entrance

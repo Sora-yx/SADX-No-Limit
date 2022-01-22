@@ -93,7 +93,7 @@ void FixRCCharacterAction() {
 
 void __cdecl Start_TailsCutscene(__int16 a1)
 {
-	if (IsAdventureComplete(CurrentCharacter) && CurrentCharacter == Characters_Tails)
+	if (IsAdventureComplete(SelectedCharacter) && CurrentCharacter == Characters_Tails)
 	{
 		return;
 	}
