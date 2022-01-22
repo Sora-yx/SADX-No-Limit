@@ -37,3 +37,6 @@ DataPointer(unsigned char, SelectedCharacter, 0x3B2A2FD);
 FunctionPointer(bool, isBarrierAllowed, (), 0x639A30);
 
 ObjectFunc(InvisibleWallCasino, 0x5d03a0);
+ObjectFunc(SDCannon, 0x5f84e0);
+ObjectFunc(SDCannonS1, 0x5f9710);
+ObjectFunc(SDCannonS2, 0x5f8e00);

@@ -2,18 +2,66 @@
 
 Trampoline* Balloon_Load_T = nullptr;
 Trampoline* OGate2_Main_t = nullptr;
+Trampoline* Capsule_Load_t = nullptr;
+Trampoline* OSnowDoa_Main_t = nullptr;
+Trampoline* CartMain_t = nullptr;
+
+void __cdecl OSnowDoa_Main_r(ObjectMaster* a1) {
+
+	EntityData1* data = a1->Data1;
+
+	if (data->Action < 1 && CurrentCharacter > Characters_Tails)
+	{
+		data->Action = 1;
+		data->CollisionInfo->CollisionArray[3].attr |= 0x10u;
+	}
+
+	ObjectFunc(origin, OSnowDoa_Main_t->Target());
+	origin(a1);
+}
+
+void __cdecl Capsule_Load_r(ObjectMaster* a1) {
+
+	EntityData1* data = a1->Data1;
+
+	if (CurrentCharacter == Characters_Amy)
+	{
+		a1->Data1->Position.y += 38;
+		a1->MainSub = Balloon_Main;
+		return;
+	}
+	else if (CurrentCharacter == Characters_Big)
+	{
+		LoadPVM("BIG_KAERU", &big_kaeru_TEXLIST);
+		a1->Data1->Position.y += 10;
+		a1->MainSub = OFrog;
+		return;
+	}
+	else {
+		ObjectFunc(origin, Capsule_Load_t->Target());
+		origin(a1);
+	}
+}
 
 void __cdecl CheckLoadBalloon_r(ObjectMaster* a1) {
+
+	if (CurrentCharacter == Characters_Big)
+	{
+		LoadPVM("BIG_KAERU", &big_kaeru_TEXLIST);
+		a1->Data1->Position.y -= 28;
+		a1->MainSub = OFrog;
+		return;
+	}
 
 	if (CurrentCharacter != Characters_Amy)
 	{
 		a1->Data1->Position.y -= 38;
-		return Capsule_Load(a1);
+		a1->MainSub = Capsule_Load;
+		return;
 	}
 
 	ObjectFunc(origin, Balloon_Load_T->Target());
 	origin(a1);
-
 }
 
 void FixRollerCoaster() {
@@ -100,6 +148,55 @@ void __cdecl OGate2_Main_r(ObjectMaster* obj)
 	origin(obj);
 }
 
+//Allow Gamma to target the Sky Deck cannon
+//Load a targetable item on the cannon to destroy it.
+void SkyDeckCannon_LoadWithTarget(ObjectMaster* SDCanonnObj) {
+	int iVar1;
+
+	iVar1 = ClipSetObject(SDCanonnObj);
+	if (iVar1 == 0) {
+		SDCannon(SDCanonnObj);
+	}
+	ObjectMaster* obj = LoadObject((LoadObj)(LoadObj_Data1 | LoadObj_Data2), 2, TargetableEntity);
+
+	obj->Data1->LoopData = (Loop*)SDCanonnObj;
+	obj->Data1->Scale.x = 20;
+
+	return;
+}
+
+//Allow Gamma to target the Sky Deck cannon
+
+void SkyDeckCannonS1_LoadWithTarget(ObjectMaster* SDCanonnObj) {
+	int iVar1;
+
+	iVar1 = ClipSetObject(SDCanonnObj);
+	if (iVar1 == 0) {
+		SDCannonS1(SDCanonnObj);
+	}
+	ObjectMaster* obj = LoadObject((LoadObj)(LoadObj_Data1 | LoadObj_Data2), 2, TargetableEntity);
+
+	obj->Data1->LoopData = (Loop*)SDCanonnObj;
+	obj->Data1->Scale.x = 20;
+
+	return;
+}
+
+void SkyDeckCannonS2_LoadWithTarget(ObjectMaster* SDCanonnObj) {
+	int iVar1;
+
+	iVar1 = ClipSetObject(SDCanonnObj);
+	if (iVar1 == 0) {
+		SDCannonS2(SDCanonnObj);
+	}
+	ObjectMaster* obj = LoadObject((LoadObj)(LoadObj_Data1 | LoadObj_Data2), 2, TargetableEntity);
+
+	obj->Data1->LoopData = (Loop*)SDCanonnObj;
+	obj->Data1->Scale.x = 20;
+
+	return;
+}
+
 
 void init_LevelObjectsHack() {
 
@@ -135,6 +232,11 @@ void init_LevelObjectsHack() {
 	WriteCall((void*)0x5C0812, Fix_PlayerPositionInPinball);
 	WriteCall((void*)0x5C0E77, Fix_PlayerPositionInPinball);
 
+	//SD
+	WriteJump((void*)0x5f8530, SkyDeckCannon_LoadWithTarget);
+	WriteJump((void*)0x5f9760, SkyDeckCannonS1_LoadWithTarget);
+	WriteJump((void*)0x5f8e50, SkyDeckCannonS2_LoadWithTarget);
+
 	//security to avoid potential save file corruption
 	WriteCall((void*)0x415066, SetLevelClear_r);
 	WriteCall((void*)0x416D98, SetLevelClear_r);
@@ -142,6 +244,8 @@ void init_LevelObjectsHack() {
 
 	Balloon_Load_T = new Trampoline((int)Balloon_Main, (int)Balloon_Main + 0x6, CheckLoadBalloon_r);
 	OGate2_Main_t = new Trampoline(0x59C850, 0x59C858, OGate2_Main_r);
+	Capsule_Load_t = new Trampoline((int)Capsule_Load, (int)Capsule_Load + 0x7, Capsule_Load_r);
+	OSnowDoa_Main_t = new Trampoline(0x4F3EE0, 0x4F3EE5, OSnowDoa_Main_r);
 
 	return;
 
