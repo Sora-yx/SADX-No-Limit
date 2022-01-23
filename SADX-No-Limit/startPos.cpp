@@ -38,6 +38,8 @@ void __cdecl SetNextLevel_r(unsigned __int16 level)
 		return original(level);
 	}
 
+	curCharacter_r = Characters_Sonic;
+
 	if (CurrentLevel == LevelIDs_HotShelter)
 		curCharacter_r = Characters_Amy;
 
