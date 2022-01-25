@@ -143,6 +143,12 @@ void init_HubObjectsHack() {
     WriteCall((void*)0x63EA92, GetCharIDTPDoor_r);   
     WriteCall((void*)0x63DBB2, GetCharIDTPDoor_r);
 
+    //Hotel Cas back door
+    WriteCall((void*)0x630972, GetCharacterID_r);    
+
+    //train station back door
+    WriteCall((void*)0x638882, GetCharacterID_r);
+
     //hub world open area
     WriteCall((void*)0x5395C5, ChangeSceneMR_ASM);
     WriteCall((void*)0x63A110, isBarrierAllowed_r);
@@ -154,6 +160,9 @@ void init_HubObjectsHack() {
  
     //WV Entrance
     WriteCall((void*)0x536E40, GetCurCharacter_r);
+
+    //cave entry
+    WriteCall((void*)0x534572, GetCharacterID_r);
     
     //island door
     WriteCall((void*)0x53F302, GetCharacterID_r);
