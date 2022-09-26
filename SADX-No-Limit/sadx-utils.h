@@ -40,3 +40,16 @@ ObjectFunc(SDCannon, 0x5f84e0);
 ObjectFunc(SDCannonS1, 0x5f9710);
 ObjectFunc(SDCannonS2, 0x5f8e00);
 
+struct bossLevel
+{
+	short int currentLevel;
+	short int currentAct;
+};
+
+
+DataArray(bossLevel, SonicBossLevels_, 0x90BB04, 11);
+DataArray(bossLevel, TailsBossLevels_, 0x90BB1C, 7);
+DataArray(bossLevel, KnucklesBossLevels_, 0x90BB2C, 7);
+DataArray(bossLevel, AmyBossLevels_, 0x90BB3C, 3);
+DataArray(bossLevel, GammaBossLevels_, 0x90BB44, 5);
+DataArray(bossLevel, BigBossLevels_, 0x90BB50, 3);

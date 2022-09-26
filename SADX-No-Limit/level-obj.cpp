@@ -101,27 +101,79 @@ void __cdecl Start_TailsCutscene(__int16 a1)
 	return StartLevelCutscene(a1);
 }
 
+
 void __cdecl SetLevelClear_r(Uint32 level)
 {
 	//if the stage isn't a regular stage for the character, don't mark it as complete to avoid save corruption
 
-	for (uint8_t i = 0; i < TrialLevels[SelectedCharacter].Count; i++)
+	char curChar = SelectedCharacter;
+
+	if (curChar >= ss)
+		curChar = sonic;
+
+	for (uint8_t i = 0; i < TrialLevels[curChar].Count; i++)
 	{
-		if (TrialLevels[SelectedCharacter].Levels[i].Level == CurrentLevel && TrialLevels[SelectedCharacter].Levels[i].Act == CurrentAct)
+		if (TrialLevels[curChar].Levels[i].Level == CurrentLevel)
+		{
+			return SetLevelClear(level); //call original function
+		}
+	}
+	
+	for (uint8_t i = 0; i < TrialSubgames[curChar].Count; i++)
+	{
+		if (TrialSubgames[curChar].Levels[i].Level == CurrentLevel)
 		{
 			return SetLevelClear(level); //call original function
 		}
 	}
 
-	for (uint8_t i = 0; i < TrialSubgames[SelectedCharacter].Count; i++)
+	static const uint8_t total = LevelIDs_E101R - LevelIDs_Chaos0 + 1;
+	bossLevel bossArray[total] = { 0 };
+
+	switch (curChar)
 	{
-		if (TrialSubgames[SelectedCharacter].Levels[i].Level == CurrentLevel && TrialSubgames[SelectedCharacter].Levels[i].Act == CurrentAct)
+	case miles:
+		memcpy(bossArray, TailsBossLevels_, sizeof(bossLevel) * TailsBossLevels_.size());
+		break;
+	case knux:
+		memcpy(bossArray, KnucklesBossLevels_, sizeof(bossLevel) * KnucklesBossLevels_.size());
+		break;
+	case amy:
+		memcpy(bossArray, AmyBossLevels_, sizeof(bossLevel) * AmyBossLevels_.size());
+		break;
+	case big:
+		memcpy(bossArray, BigBossLevels_, sizeof(bossLevel) * BigBossLevels_.size());
+		break;
+	case gamma:
+		memcpy(bossArray, GammaBossLevels_, sizeof(bossLevel) * GammaBossLevels_.size());
+		break;
+	case ss:
+	default:
+		memcpy(bossArray, SonicBossLevels_, sizeof(bossLevel) * SonicBossLevels_.size());
+		break;
+	}
+
+	if (curChar == miles)
+	{
+		if (!EventFlagArray[EventFlags_Tails_EmeraldCoastClear] && level == LevelIDs_EmeraldCoast)
+			return SetLevelClear(level); //call original function
+
+		if (!EventFlagArray[EventFlags_Tails_RedMountainClear] && level == LevelIDs_RedMountain)
+			return SetLevelClear(level); //call original function
+	}
+
+	for (uint8_t i = 0; i < total; i++)
+	{
+		if (bossArray[i].currentLevel == LevelIDs_Invalid)
+		{
+			return;
+		}
+
+		if (CurrentLevel == bossArray[i].currentLevel)
 		{
 			return SetLevelClear(level); //call original function
 		}
 	}
-
-	return;
 }
 
 void FixFlipperCharacterPosition() {
